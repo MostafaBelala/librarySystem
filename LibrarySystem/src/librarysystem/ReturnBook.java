@@ -4,13 +4,18 @@
  */
 package librarysystem;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Bahaa
  */
 public class ReturnBook extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReturnBook.class.getName());
+
+    Connection con;
 
     /**
      * Creates new form ReturnBook
@@ -18,6 +23,12 @@ public class ReturnBook extends javax.swing.JFrame {
     public ReturnBook() {
         initComponents();
         this.setLocationRelativeTo(null);
+
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost/library", "root", "528624");
+        } catch (SQLException ex) {
+            System.getLogger(BorrowBook.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
 
     /**
@@ -33,9 +44,9 @@ public class ReturnBook extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        borrowID = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        member_name = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -50,7 +61,6 @@ public class ReturnBook extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -61,11 +71,17 @@ public class ReturnBook extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("BorrowID:");
 
+        borrowID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrowIDActionPerformed(evt);
+            }
+        });
+
         jButton2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton2.setText("confirm Return");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("member_name");
+        member_name.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        member_name.setText("member_name");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Book:");
@@ -119,7 +135,7 @@ public class ReturnBook extends javax.swing.JFrame {
                                 .addGap(55, 55, 55)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11)
-                                    .addComponent(jLabel3)
+                                    .addComponent(member_name)
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel12)
                                     .addComponent(jLabel13)
@@ -135,7 +151,7 @@ public class ReturnBook extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                                .addComponent(borrowID, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton1)
                                 .addGap(92, 92, 92))
@@ -152,19 +168,19 @@ public class ReturnBook extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jButton1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(borrowID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(member_name)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel10))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -196,6 +212,24 @@ public class ReturnBook extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void borrowIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrowIDActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            PreparedStatement stmt = con.prepareStatement("SELECT member.member_name, book.title FROM borrow JOIN member ON borrow.member_id = member.member_id JOIN book ON borrow.book_id = book.book_id WHERE borrow.borrow_id = ?");
+            stmt.setString(1, borrowID.getText());
+            ResultSet data = stmt.executeQuery();
+            if (!data.next()) {
+                JOptionPane.showMessageDialog(this, "there isn`t excist borrow with this ID!");
+                return;
+            };
+            member_name.setText(data.getString(1));
+        } catch (SQLException ex) {
+            System.getLogger(BorrowBook.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            JOptionPane.showMessageDialog(this, "failed to connect!");
+        }
+    }//GEN-LAST:event_borrowIDActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -222,6 +256,7 @@ public class ReturnBook extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField borrowID;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -231,7 +266,6 @@ public class ReturnBook extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -239,6 +273,6 @@ public class ReturnBook extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel member_name;
     // End of variables declaration//GEN-END:variables
 }

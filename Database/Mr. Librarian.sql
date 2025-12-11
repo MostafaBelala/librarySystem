@@ -118,12 +118,6 @@
 
 -- DELIMITER ;
 
-INSERT INTO member(member_name, phone, email)
-VALUES 
-('Ali', '01012345678', 'ali@gmail.com'),
-('Sara', '01087654321', 'sara@gmail.com');
-
-
-select * from member;
+select * from borrow;
 
 
