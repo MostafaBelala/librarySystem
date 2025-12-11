@@ -222,7 +222,7 @@ public class ReturnBook extends javax.swing.JFrame {
             if (!data.next()) {
                 JOptionPane.showMessageDialog(this, "there isn`t excist borrow with this ID!");
                 return;
-            };
+            }
             member_name.setText(data.getString(1));
         } catch (SQLException ex) {
             System.getLogger(BorrowBook.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
