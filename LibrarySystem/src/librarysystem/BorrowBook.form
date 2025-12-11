@@ -73,7 +73,7 @@
                       <Component id="jButton1" min="-2" pref="174" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="68" pref="148" max="32767" attributes="0"/>
+              <EmptySpace min="68" pref="77" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

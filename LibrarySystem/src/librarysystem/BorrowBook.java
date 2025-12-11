@@ -4,8 +4,9 @@
  */
 package librarysystem;
 
-import java.sql.*;
+
 import javax.swing.JOptionPane;
+import java.sql.*;
 
 /**
  *
@@ -28,6 +29,7 @@ public class BorrowBook extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.getLogger(BorrowBook.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
+
         
     }
 
@@ -174,12 +176,11 @@ public class BorrowBook extends javax.swing.JFrame {
                                     .addComponent(bookID_lb)
                                     .addComponent(memberID_lb)
                                     .addComponent(available_copies_lb)
-                                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 109, Short.MAX_VALUE))))
+                                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(157, 157, 157)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(68, 68, 68))
+                .addGap(68, 77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,10 +246,31 @@ public class BorrowBook extends javax.swing.JFrame {
 
     private void onCheckMember(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onCheckMember
         // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            PreparedStatement stmt = con.prepareStatement("select member_name from member where member_id = ?");
+            stmt.setString(1, memberID.getText());
+            ResultSet name = stmt.executeQuery();
+            name.next();
+            memberID_lb.setText(name.getString(1));            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "there isn`t excist member with this ID");
+        }
     }//GEN-LAST:event_onCheckMember
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            PreparedStatement stmt = con.prepareStatement("select title, available_copies from book where book_id = ?");
+            stmt.setString(1, bookID.getText());
+            ResultSet book = stmt.executeQuery();
+            book.next();
+            bookID_lb.setText(book.getString(1));            
+            available_copies_lb.setText(String.valueOf(book.getInt(2)));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "there isn`t excist book with this ID");
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void onEnterKeyOnMemberField(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onEnterKeyOnMemberField
