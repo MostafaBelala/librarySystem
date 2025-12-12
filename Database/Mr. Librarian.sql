@@ -118,6 +118,16 @@
 
 -- DELIMITER ;
 
-select * from borrow;
+-- SET SQL_SAFE_UPDATES = 0;
+
+-- UPDATE return_book rb
+-- JOIN borrow b ON rb.borrow_id = b.borrow_id
+-- SET rb.fine_amount = IF(DATEDIFF(CURDATE(), b.borrow_date) > 1,
+--                         DATEDIFF(CURDATE(), b.borrow_date)/5,
+--                         0.00);
+
+-- SET SQL_SAFE_UPDATES = 1;
+
+select * from return_book;
 
 

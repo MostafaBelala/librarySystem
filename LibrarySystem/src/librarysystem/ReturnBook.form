@@ -59,12 +59,12 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                      <Component id="title" min="-2" max="-2" attributes="0"/>
                                       <Component id="member_name" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="borrowed_date" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="due_date" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="today" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fine" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -87,7 +87,7 @@
                                   <EmptySpace min="92" pref="92" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="jButton2" min="-2" pref="158" max="-2" attributes="0"/>
+                                  <Component id="onConfirmReturn" min="-2" pref="158" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -114,31 +114,31 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="title" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="borrowed_date" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="due_date" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="today" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fine" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="53" max="32767" attributes="0"/>
-                  <Component id="jButton2" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Component id="onConfirmReturn" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -171,13 +171,16 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="borrowIDActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="onConfirmReturn">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="sansserif" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="confirm Return"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onConfirmReturnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="member_name">
           <Properties>
@@ -235,7 +238,7 @@
             <Property name="text" type="java.lang.String" value="Member:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel10">
+        <Component class="javax.swing.JLabel" name="borrowed_date">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -243,7 +246,7 @@
             <Property name="text" type="java.lang.String" value="borrow_date"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel11">
+        <Component class="javax.swing.JLabel" name="title">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -251,7 +254,7 @@
             <Property name="text" type="java.lang.String" value="book_title"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel12">
+        <Component class="javax.swing.JLabel" name="due_date">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -259,7 +262,7 @@
             <Property name="text" type="java.lang.String" value="due_date"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel13">
+        <Component class="javax.swing.JLabel" name="today">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -267,7 +270,7 @@
             <Property name="text" type="java.lang.String" value="today"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel14">
+        <Component class="javax.swing.JLabel" name="fine">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>

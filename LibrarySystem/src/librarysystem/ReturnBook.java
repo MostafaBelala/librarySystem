@@ -5,6 +5,7 @@
 package librarysystem;
 
 import java.sql.*;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +30,8 @@ public class ReturnBook extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.getLogger(BorrowBook.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
+        LocalDate todayDate = LocalDate.now();
+        today.setText(todayDate.toString());
     }
 
     /**
@@ -45,7 +48,7 @@ public class ReturnBook extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         borrowID = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        onConfirmReturn = new javax.swing.JButton();
         member_name = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -53,11 +56,11 @@ public class ReturnBook extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        borrowed_date = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
+        due_date = new javax.swing.JLabel();
+        today = new javax.swing.JLabel();
+        fine = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,8 +80,13 @@ public class ReturnBook extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton2.setText("confirm Return");
+        onConfirmReturn.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        onConfirmReturn.setText("confirm Return");
+        onConfirmReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onConfirmReturnActionPerformed(evt);
+            }
+        });
 
         member_name.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         member_name.setText("member_name");
@@ -101,20 +109,20 @@ public class ReturnBook extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Member:");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel10.setText("borrow_date");
+        borrowed_date.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        borrowed_date.setText("borrow_date");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel11.setText("book_title");
+        title.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        title.setText("book_title");
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setText("due_date");
+        due_date.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        due_date.setText("due_date");
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel13.setText("today");
+        today.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        today.setText("today");
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel14.setText("fine_amount");
+        fine.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        fine.setText("fine_amount");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,12 +142,12 @@ public class ReturnBook extends javax.swing.JFrame {
                                     .addComponent(jLabel4))
                                 .addGap(55, 55, 55)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
+                                    .addComponent(title)
                                     .addComponent(member_name)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel14))))
+                                    .addComponent(borrowed_date)
+                                    .addComponent(due_date)
+                                    .addComponent(today)
+                                    .addComponent(fine))))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,7 +164,7 @@ public class ReturnBook extends javax.swing.JFrame {
                                 .addComponent(jButton1)
                                 .addGap(92, 92, 92))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(onConfirmReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -175,26 +183,26 @@ public class ReturnBook extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
+                    .addComponent(title)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
+                    .addComponent(borrowed_date)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel12))
+                    .addComponent(due_date))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel13))
+                    .addComponent(today))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel14))
+                    .addComponent(fine))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(onConfirmReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
 
@@ -216,7 +224,11 @@ public class ReturnBook extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            PreparedStatement stmt = con.prepareStatement("SELECT member.member_name, book.title FROM borrow JOIN member ON borrow.member_id = member.member_id JOIN book ON borrow.book_id = book.book_id WHERE borrow.borrow_id = ?");
+            PreparedStatement stmt = con.prepareStatement("SELECT member.member_name, book.title, borrow_date, due_date, IF(" +
+            "DATEDIFF(CURDATE(), due_date) > 1, " +
+            "DATEDIFF(CURDATE(), due_date) / 5, " +
+            "0.00" +
+            ") as fine FROM borrow JOIN member ON borrow.member_id = member.member_id JOIN book ON borrow.book_id = book.book_id WHERE borrow.borrow_id = ?");
             stmt.setString(1, borrowID.getText());
             ResultSet data = stmt.executeQuery();
             if (!data.next()) {
@@ -224,11 +236,33 @@ public class ReturnBook extends javax.swing.JFrame {
                 return;
             }
             member_name.setText(data.getString(1));
+            title.setText(data.getString(2));
+            borrowed_date.setText(data.getString(3));
+            due_date.setText(data.getString(4));
+            fine.setText(data.getString(5));
         } catch (SQLException ex) {
             System.getLogger(BorrowBook.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             JOptionPane.showMessageDialog(this, "failed to connect!");
         }
     }//GEN-LAST:event_borrowIDActionPerformed
+
+    private void onConfirmReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onConfirmReturnActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            PreparedStatement stmt = con.prepareStatement("INSERT into return_book(borrow_id, fine_amount) values(?, ?)");
+            stmt.setString(1, borrowID.getText());
+            stmt.setString(2, fine.getText());
+            stmt.executeUpdate();
+            
+            PreparedStatement stmt2 = con.prepareStatement("UPDATE borrow SET returned = 1 WHERE borrow_id = ?");
+            stmt2.setString(1, borrowID.getText());
+            stmt2.executeUpdate();
+        } catch (SQLException ex) {
+            System.getLogger(BorrowBook.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            JOptionPane.showMessageDialog(this, "failed to confirm return!");
+        }
+    }//GEN-LAST:event_onConfirmReturnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,14 +291,11 @@ public class ReturnBook extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField borrowID;
+    private javax.swing.JLabel borrowed_date;
+    private javax.swing.JLabel due_date;
+    private javax.swing.JLabel fine;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -274,5 +305,8 @@ public class ReturnBook extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel member_name;
+    private javax.swing.JButton onConfirmReturn;
+    private javax.swing.JLabel title;
+    private javax.swing.JLabel today;
     // End of variables declaration//GEN-END:variables
 }
